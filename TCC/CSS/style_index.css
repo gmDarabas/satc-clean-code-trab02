@@ -1,0 +1,127 @@
+#subirTopo {
+    text-decoration: none;
+    bottom: 55px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    cursor: pointer;
+    padding: 15px;
+    position: fixed;
+    opacity: .6;
+}
+
+#subirTopo:hover {
+    opacity: 1;
+}
+
+.imgSubir {
+    position: fixed;
+    bottom: 55px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    cursor: pointer;
+    cursor: hand;
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+/* Botão circular */
+.btEnvio {
+    text-decoration: none;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    cursor: pointer;
+    padding: 15px;
+    position: fixed;
+    opacity: .6;
+}
+
+.imgEnvio {
+    position: fixed;
+    bottom: 10;
+    right: 10;
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    cursor: pointer;
+    cursor: hand;
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.btEnvio:hover {
+    opacity: 1;
+}
+
+.btCadastro {
+    margin-left: 10px !important;
+}
+
+.botaoverde,.botaoverde:active,
+.botaoverde:visited {
+    background-color: #83be52 !important;
+    border-color: #83be52 !important;
+    color: white;
+}
+
+.botaoverde:hover {
+    background-color: #679D3C !important;
+    border-color: #679D3C !important;
+}
+
+.btnPesquisar {
+    border-color: #83be52 !important;
+}
+
+.btnPesquisar:hover {
+    background-color: #679D3C !important;
+    border-color: #679D3C !important;
+}
+
+.popup {
+    position: fixed;
+    z-index: 100;
+    left: 0; right: 0; top: 0; bottom: 0;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    padding: 15px;
+    border: solid 1px black;
+    border-radius: 10px;
+    background:white;
+    display: none;
+}
+
+.imgInfo {
+    position: static;
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    cursor: hand;
+    border-radius: 20px;
+}
+
+.btnInfo{
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    cursor: hand;
+    position: static;
+
+}
+.centro{
+    position:absolute;
+    top:50%;
+    left:50%;
+}
