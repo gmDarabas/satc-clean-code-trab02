@@ -1,0 +1,13 @@
+{
+    "name": "clean-code/sharetorrent",
+    "autoload": {
+        "psr-4": {
+            "CleanCode\\Sharetorrent\\": "src/"
+        }
+    },
+    "require": {},
+    "scripts": {
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "lint:fix": "php-cs-fixer fix"
+    }
+}

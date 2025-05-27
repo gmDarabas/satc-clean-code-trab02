@@ -1,0 +1,9 @@
+{
+    "name": "clean-code/sharetorrent",
+    "autoload": {
+        "psr-4": {
+            "CleanCode\\Sharetorrent\\": "src/"
+        }
+    },
+    "require": {}
+}

@@ -1,2 +1,3 @@
 <?php
-phpinfo();
+
+include './Views/main.php';

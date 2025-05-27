@@ -18,7 +18,7 @@ services:
       context: docker/php
     container_name: st-php
     volumes:
-      - ./src:/var/www/html
+      - .:/var/www/html
     depends_on:
       - db
     networks:
