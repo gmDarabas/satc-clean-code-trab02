@@ -36,9 +36,9 @@ class Arquivo extends Model
         ];
     }
 
-    public function usuario()
+    public function user()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(User::class);
     }
 
     public function pastas()
@@ -71,7 +71,7 @@ class Arquivo extends Model
             $bytes /= 1024;
         }
 
-        return round($bytes, 2) . ' ' . $units[$i];
+        return round($bytes, 2).' '.$units[$i];
     }
 
     public function incrementarDownloads()

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index(['hash_info', 'ativo']);
-            $table->index(['usuario_id', 'ativo']);
+            $table->index(['user_id', 'ativo']);
         });
     }
 
