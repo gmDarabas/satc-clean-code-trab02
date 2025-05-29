@@ -33,7 +33,7 @@ docker exec -it clean-code-laravel bash
 php artisan migrate
 ```
 
-### 🎨 Linter e Estilo
+# 🎨 Linter e Estilo
 - Adotado o padrão **PSR-12** com **Laravel Pint** para manter estilo de código consistente.
 - Adicionadas ferramentas de linting ao `composer.json`.
 
