@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PastaController;
 use App\Http\Controllers\TorrentController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/torrents/{arquivo}/edit', [TorrentController::class, 'edit'])->name('torrents.edit');
     Route::put('/torrents/{arquivo}', [TorrentController::class, 'update'])->name('torrents.update');
     Route::delete('/torrents/{arquivo}', [TorrentController::class, 'destroy'])->name('torrents.destroy');
+});
+
+Route::get('/pastas', [PastaController::class, 'index'])->name('pastas.index');
+Route::get('/pastas/{pasta}', [PastaController::class, 'show'])->name('pastas.show');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/pastas/create', [PastaController::class, 'create'])->name('pastas.create');
+    Route::post('/pastas', [PastaController::class, 'store'])->name('pastas.store');
+    Route::get('/pastas/{pasta}/edit', [PastaController::class, 'edit'])->name('pastas.edit');
+    Route::put('/pastas/{pasta}', [PastaController::class, 'update'])->name('pastas.update');
+    Route::delete('/pastas/{pasta}', [PastaController::class, 'destroy'])->name('pastas.destroy');
 });

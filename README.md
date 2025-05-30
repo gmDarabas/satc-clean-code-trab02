@@ -33,6 +33,14 @@ docker exec -it clean-code-laravel bash
 php artisan migrate
 ```
 
+
+### Rodar Seeder 
+Atualmente, a aplicação ainda não possui funcionalidade de login implementada. Para facilitar os testes durante o desenvolvimento, 
+foi criada uma seeder que popula o banco de dados com um usuário padrão, pastas e arquivos de exemplo.
+```bash
+# Dentro do container 
+php artisan db:seed
+```
 # 🎨 Linter e Estilo
 - Adotado o padrão **PSR-12** com **Laravel Pint** para manter estilo de código consistente.
 - Adicionadas ferramentas de linting ao `composer.json`.

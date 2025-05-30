@@ -15,7 +15,7 @@ class Pasta extends Model
         'nome',
         'descricao',
         'publica',
-        'usuario_id',
+        'user_id',
         'pasta_pai_id',
     ];
 
@@ -27,9 +27,9 @@ class Pasta extends Model
     }
 
     // Relacionamentos
-    public function usuario()
+    public function user()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(User::class);
     }
 
     public function pastaPai()
@@ -44,7 +44,7 @@ class Pasta extends Model
 
     public function arquivos()
     {
-        return $this->belongsToMany(Arquivo::class, 'arquivo_pasta')
+        return $this->belongsToMany(Arquivo::class, 'arquivo_pasta', 'pasta_id', 'arquivo_id')
             ->withTimestamps();
     }
 
@@ -61,7 +61,7 @@ class Pasta extends Model
 
     public function scopeDoUsuario($query, $usuarioId)
     {
-        return $query->where('usuario_id', $usuarioId);
+        return $query->where('user_id', $usuarioId);
     }
 
     // Métodos auxiliares
