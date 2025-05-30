@@ -7,7 +7,142 @@
 
 # 📦 Projeto Clean Code
 
-Este projeto é uma aplicação desenvolvida em **Laravel**, com o objetivo de aplicar os princípios de **Clean Code**, boas práticas de desenvolvimento, testes automatizados e uso de containers Docker para garantir escalabilidade e organização.
+Este projeto é uma aplicação desenvolvida em **Laravel**, com o objetivo de aplicar os princípios de **Clean Code**, boas práticas de desenvolvimento, testes automatizados e containers Docker para garantir escalabilidade, manutenibilidade e clareza estrutural no código.
+
+---
+
+## 🧩 Descrição do Software
+
+A aplicação permite o gerenciamento de pastas e arquivos `.torrent`, incluindo:
+- Cadastro e visualização de pastas
+- Upload, listagem e visualização de torrents
+- Interface web com navegação simples e funcional
+
+---
+
+## 🔍 Análise dos Principais Problemas Detectados (Código Legado)
+
+- Código monolítico e acoplado
+- Funções misturadas com lógica de visualização (`funcoes.php`, `listar.php`, etc)
+- Nomenclaturas vagas como `insert2.php`, `arq`, `aux`
+- Ausência de testes automatizados
+- Inexistência de padrões como MVC, PSR-12 ou arquitetura em camadas
+
+---
+
+## 🔧 Estratégia de Refatoração
+
+- **Migração para Laravel** para aplicar MVC nativo
+- Criação de camadas de **Service** e **Repository**
+- Uso de **DTOs** com tipagem e validação
+- Implementação de **testes automatizados**
+- Padronização com **Laravel Pint (PSR-12)**
+- Utilização de **Docker** para ambiente de desenvolvimento unificado
+
+---
+
+## 📋 CHANGELOG
+
+### [1.0.0] - 2025-05-29
+
+#### ✅ Adicionado
+- Estrutura completa baseada no Laravel
+- Docker com PHP-FPM, NGINX e Postgres configurado
+- Seeder com dados fictícios para teste de navegação
+- Testes PHPUnit cobrindo as rotas principais
+- Interface fluente com encadeamento de métodos
+- DTOs usando Spatie Laravel Data
+- Linter Laravel Pint no Composer
+
+#### ♻️ Refatorado
+- Código legado procedural completamente eliminado
+- Reestruturação em MVC com camadas de responsabilidade claras
+- Nomes de variáveis e métodos substituídos por descrições semânticas
+- Separação entre regras de negócio e persistência de dados
+
+#### 🐛 Corrigido
+- Acoplamento entre controller e acesso direto ao banco
+- Funções sem reutilização, duplicidade de lógica e ausência de tipagem
+- Falta de padronização e inexistência de validações
+
+---
+
+## 🧪 Testes Implementados
+
+- `BasicTest` cobre:
+  - Página inicial (`/`)
+  - Rota de pastas (`/pastas`)
+  - Rota de torrents (`/torrents`)
+- Rodar via:
+```bash
+docker exec -it app php artisan test
+```
+
+---
+
+## 🔗 Interface Fluente
+
+Métodos encadeáveis foram utilizados em repositórios e query builders para clareza na lógica:
+
+```php
+Arquivo::query()
+    ->where('ativo', true)
+    ->latest()
+    ->limit(5)
+    ->get();
+```
+
+Facilita a leitura e permite construção fluente e segura de queries.
+
+---
+
+## 🛠️ Instalação e Execução
+
+1. Copie `.env`:
+```bash
+cp .env.example .env
+```
+
+2. Suba os containers:
+```bash
+docker-compose up --build -d
+```
+
+3. Rode migrations e seeders:
+```bash
+docker exec -it app php artisan migrate
+docker exec -it app php artisan db:seed
+```
+
+4. Acesse:
+```
+http://localhost:8000
+```
+
+---
+
+## 🌱 Rodar Seeder Manualmente
+
+```bash
+docker exec -it app php artisan db:seed
+```
+
+---
+
+## 🎨 Linter
+
+```bash
+docker exec -it app composer lint
+```
+
+---
+
+## 🧱 Estrutura Geral
+
+- `app/`: Código-fonte da aplicação
+- `routes/web.php`: Rotas da aplicação
+- `tests/`: Testes automatizados
+- `docker-compose.yml`: Containers da aplicação
 
 ---
 
@@ -19,148 +154,3 @@ Este projeto é uma aplicação desenvolvida em **Laravel**, com o objetivo de a
 - Stephan Anthony Marques  
 
 ---
-
-## 🛠️ Tecnologias Utilizadas
-
-### 🔧 Backend
-- **Laravel** – Framework PHP moderno e robusto
-- **PHP 8.3** – Linguagem utilizada
-- **Composer** – Gerenciador de dependências
-
-### 🧪 Testes
-- **PHPUnit** – Testes automatizados
-- **Artisan Test Runner** – Executor de testes Laravel
-
-### 🐳 Infraestrutura
-- **Docker & Docker Compose** – Ambiente conteinerizado
-- **NGINX** – Servidor web
-
-### 🌐 Frontend
-- **Blade Templates** – Motor de views Laravel
-- **Vite** – Empacotador de assets moderno (JS/CSS)
-
----
-
-## 🔗 Acesso às Telas
-
-Após subir o ambiente, acesse:
-
-- 📂 [http://localhost:8000/pastas](http://localhost:8000/pastas)  
-- 💾 [http://localhost:8000/torrents](http://localhost:8000/torrents)
-
----
-
-## 🐳 Como Rodar com Docker
-
-1. Copie o arquivo `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Suba os containers:
-   ```bash
-   docker-compose up --build -d
-   ```
-
-3. Acesse a aplicação:
-   ```
-   http://localhost:8000
-   ```
-
-4. Rode as migrations (opcional):
-   ```bash
-   docker exec -it app php artisan migrate
-   ```
-
----
-
-## ✅ Executar os Testes
-
-```bash
-docker exec -it app php artisan test
-# ou
-docker exec -it app ./vendor/bin/phpunit
-```
-
----
-
-## 🌱 Rodar Seeder
-
-Como a aplicação ainda não possui login, foi criado um seeder para popular o banco com um usuário, pastas e arquivos de exemplo:
-
-```bash
-docker exec -it app php artisan db:seed
-```
-
----
-
-## 🎨 Linter e Estilo
-
-- Segue o padrão **PSR-12**
-- Utiliza **Laravel Pint** para formatação automática de código
-
-Para rodar o lint:
-
-```bash
-# Fora do container
-docker exec -it clean-code-laravel composer lint
-
-# Dentro do container
-composer lint
-```
-
----
-
-## 🧱 Estrutura Geral
-
-- `app/` — código-fonte principal (controllers, models, services)
-- `routes/web.php` — definição de rotas
-- `tests/` — testes automatizados
-- `docker-compose.yml` — definição dos serviços
-
----
-
-## 🔁 Versão Refatorada (`main`)
-
-### ✅ Migração para Laravel
-
-**Por quê?**
-- Resolver problemas como acoplamento excessivo, desorganização e nomes genéricos.
-- Substituir estruturas confusas como `funcoes.php`, `insert2.php`, etc.
-
-**Melhorias implementadas:**
-- Arquitetura **MVC** bem definida
-- Rotas nomeadas, middlewares, separation of concerns
-- Padrões de organização automáticos do Laravel
-
----
-
-### 📂 Camadas de Service e Repository
-
-- `Service`: lógica de negócio (ex: `ArquivoService`)
-- `Repository`: acesso a dados desacoplado (ex: `ArquivoRepository` com Eloquent)
-
----
-
-### 📦 Uso de DTOs (Data Transfer Objects)
-
-- Com **Spatie Laravel Data**
-- Permite dados tipados, estruturados e fáceis de validar
-- Melhora clareza dos parâmetros e facilita testes
-
----
-
-### 🧼 Nomenclatura e Legibilidade
-
-- Nomes claros e descritivos para métodos, variáveis e arquivos
-- Substituição de siglas e termos genéricos como `arq`, `insert2`, etc
-
----
-
-## 🌿 Branches
-
-- `original`: versão PHP procedural sem estrutura
-- `main`: versão Laravel com arquitetura limpa e modularizada
-
----
-
