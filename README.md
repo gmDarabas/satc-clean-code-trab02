@@ -1,51 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# Titulo
-[descrever o proposito do projeto]
+<p align="center">
+  <a href="https://laravel.com" target="_blank">
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+  </a>
+</p>
 
-# Equipe
+# 📦 Projeto Clean Code
 
-- Guilherme Machado Darabas
-- RUBENS SCOTTI JUNIOR
-- STEPHAN ANTHONY MARQUES DOS SANTOS
-- PAULO ROBERTO SIMÃO
+Este projeto é uma aplicação desenvolvida em **Laravel**, com o objetivo de aplicar os princípios de **Clean Code**, boas práticas de desenvolvimento, testes automatizados e uso de containers Docker para garantir escalabilidade e organização.
 
-# Tecnologias
+---
 
-- PHP com laravel
-- ....
+## 👨‍💻 Equipe
 
-# Como Instalar 🔨
+- Guilherme Machado Darabas  
+- Paulo Roberto Simão  
+- Rubens Scotti Junior  
+- Stephan Anthony Marques  
 
-Copiar o arquivo `.env.example` para `.env` e alterar conforme necessidade
+---
 
-O projeto conta com um docker-compose para facilitar o ambiente de desenvolvimento
+## 🛠️ Tecnologias Utilizadas
+
+### 🔧 Backend
+- **Laravel** – Framework PHP moderno e robusto
+- **PHP 8.3** – Linguagem utilizada
+- **Composer** – Gerenciador de dependências
+
+### 🧪 Testes
+- **PHPUnit** – Testes automatizados
+- **Artisan Test Runner** – Executor de testes Laravel
+
+### 🐳 Infraestrutura
+- **Docker & Docker Compose** – Ambiente conteinerizado
+- **NGINX** – Servidor web
+
+### 🌐 Frontend
+- **Blade Templates** – Motor de views Laravel
+- **Vite** – Empacotador de assets moderno (JS/CSS)
+
+---
+
+## 🔗 Acesso às Telas
+
+Após subir o ambiente, acesse:
+
+- 📂 [http://localhost:8000/pastas](http://localhost:8000/pastas)  
+- 💾 [http://localhost:8000/torrents](http://localhost:8000/torrents)
+
+---
+
+## 🐳 Como Rodar com Docker
+
+1. Copie o arquivo `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Suba os containers:
+   ```bash
+   docker-compose up --build -d
+   ```
+
+3. Acesse a aplicação:
+   ```
+   http://localhost:8000
+   ```
+
+4. Rode as migrations (opcional):
+   ```bash
+   docker exec -it app php artisan migrate
+   ```
+
+---
+
+## ✅ Executar os Testes
 
 ```bash
-docker compose up
+docker exec -it app php artisan test
+# ou
+docker exec -it app ./vendor/bin/phpunit
 ```
 
-Depois é necessário rodar as migrations
+---
+
+## 🌱 Rodar Seeder
+
+Como a aplicação ainda não possui login, foi criado um seeder para popular o banco com um usuário, pastas e arquivos de exemplo:
 
 ```bash
-docker exec -it clean-code-laravel bash
-
-php artisan migrate
+docker exec -it app php artisan db:seed
 ```
 
+---
 
-### Rodar Seeder 
-Atualmente, a aplicação ainda não possui funcionalidade de login implementada. Para facilitar os testes durante o desenvolvimento, 
-foi criada uma seeder que popula o banco de dados com um usuário padrão, pastas e arquivos de exemplo.
-```bash
-# Dentro do container 
-php artisan db:seed
-```
-# 🎨 Linter e Estilo
-- Adotado o padrão **PSR-12** com **Laravel Pint** para manter estilo de código consistente.
-- Adicionadas ferramentas de linting ao `composer.json`.
+## 🎨 Linter e Estilo
 
-Para rodar o `pint`
+- Segue o padrão **PSR-12**
+- Utiliza **Laravel Pint** para formatação automática de código
+
+Para rodar o lint:
+
 ```bash
 # Fora do container
 docker exec -it clean-code-laravel composer lint
@@ -56,50 +111,56 @@ composer lint
 
 ---
 
+## 🧱 Estrutura Geral
+
+- `app/` — código-fonte principal (controllers, models, services)
+- `routes/web.php` — definição de rotas
+- `tests/` — testes automatizados
+- `docker-compose.yml` — definição dos serviços
+
+---
+
 ## 🔁 Versão Refatorada (`main`)
 
 ### ✅ Migração para Laravel
-- **Motivo**: 
-    Decidimos utilizar laravel para resolver problemas estruturais como código monolítico, 
-    acoplamento excessivo e ausência de organização em camadas.
-    Além da falta de padrão para pastas como `funcoes` `funcoes_usuario` e arquivos mal nomeados como `envia.php`, `listar.php`, `pesquisa.php`...
-- **Melhorias**:
-    - Adotado padrão **MVC** nativo do Laravel.
-    - Organização automática de diretórios para controllers, models, views, services, etc.
-    - Uso do sistema de rotas nomeadas e middlewares para segurança e controle de acesso.
-    - Separação de responsabilidades entre as camadas de apresentação, lógica de negócio e persistência.
+
+**Por quê?**
+- Resolver problemas como acoplamento excessivo, desorganização e nomes genéricos.
+- Substituir estruturas confusas como `funcoes.php`, `insert2.php`, etc.
+
+**Melhorias implementadas:**
+- Arquitetura **MVC** bem definida
+- Rotas nomeadas, middlewares, separation of concerns
+- Padrões de organização automáticos do Laravel
 
 ---
 
 ### 📂 Camadas de Service e Repository
-- **Service Layer**:
-    - Centraliza regras de negócio e operações de alto nível.
-    - Exemplo: `ArquivoService` agora trata a lógica relacionada ao envio/listagem dos arquivos torrent.
 
-- **Repository Layer**:
-    - Encapsulamento das queries de banco de dados para manter desacoplamento.
-    - Exemplo: `ArquivoRepository` manipula `Eloquent` com clareza e reutilização.
-    - Facilita testes com mocks e permite evolução futura sem depender diretamente do ORM.
+- `Service`: lógica de negócio (ex: `ArquivoService`)
+- `Repository`: acesso a dados desacoplado (ex: `ArquivoRepository` com Eloquent)
 
 ---
 
 ### 📦 Uso de DTOs (Data Transfer Objects)
-- Implementado com **Spatie Laravel Data** para:
-  - Organizar e tipar os dados de entrada com clareza que anteriormente não era tipado/documentado.
-  - Melhorar legibilidade e reusabilidade dos parâmetros de filtros e formulários.
-  - Converter automáticamente parametros para classes, facilitando leitura de código
+
+- Com **Spatie Laravel Data**
+- Permite dados tipados, estruturados e fáceis de validar
+- Melhora clareza dos parâmetros e facilita testes
 
 ---
 
 ### 🧼 Nomenclatura e Legibilidade
-- Refatoração completa dos nomes de:
-    - Variáveis e métodos para refletirem **intenção clara**.
-    - Classes para refletirem sua responsabilidade de forma explícita.
-- Remoção de siglas e nomes genéricos (`arq`, `insert2`, `obj`) substituídos por nomes descritivos.
+
+- Nomes claros e descritivos para métodos, variáveis e arquivos
+- Substituição de siglas e termos genéricos como `arq`, `insert2`, etc
 
 ---
 
-## 🔗 Branches
+## 🌿 Branches
 
-- `original`: versão antiga em PHP puro, sem estrutura modular.
-- `main`: versão refatorada com Laravel, camadas e arquitetura limpa.
+- `original`: versão PHP procedural sem estrutura
+- `main`: versão Laravel com arquitetura limpa e modularizada
+
+---
+
